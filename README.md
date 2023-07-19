@@ -1,15 +1,13 @@
 # flutter_mysofa
 
-A new Flutter plugin project.
+libmysofa Unofficial Wrapper Plugin for Flutter
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+This plugin currently provides a simple, high-level API for the `getIR` function.
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+This libmysofa Flutter plugin is available under the MIT license. For more information, refer to the LICENSE file in the repository.
 
+This project uses the following open-source packages:
+- [libmysofa](https://github.com/hoene/libmysofa) which is licensed under the [License](https://github.com/hoene/libmysofa/blob/main/LICENSE).
