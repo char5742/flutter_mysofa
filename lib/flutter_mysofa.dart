@@ -10,16 +10,18 @@ class FlutterMYSOFA {
   final _library = MYSOFALibrary(Platform.isAndroid
       ? DynamicLibrary.open('libmysofa.so')
       : DynamicLibrary.open('libmysofa.dylib'));
- late Pointer<MYSOFA_EASY> hrtf;
- late int filterLength;
-  Future<void> initialize( String assetPath, {required double samplerate}) async{
-    final data =await rootBundle.load(assetPath);
+  late Pointer<MYSOFA_EASY> hrtf;
+  late int filterLength;
+  Future<void> initialize(String assetPath,
+      {required double samplerate}) async {
+    final data = await rootBundle.load(assetPath);
     final databyte = data.buffer.asUint8List();
     final dataPtr = malloc<Uint8>(data.lengthInBytes);
     dataPtr.asTypedList(data.lengthInBytes).setAll(0, databyte);
     final filterlengthPtr = malloc<Int>();
     final errPtr = malloc<Int>();
-    hrtf = _library.mysofa_open_data(dataPtr.cast<Char>(), data.lengthInBytes, samplerate, filterlengthPtr, errPtr);
+    hrtf = _library.mysofa_open_data(dataPtr.cast<Char>(), data.lengthInBytes,
+        samplerate, filterlengthPtr, errPtr);
     filterLength = filterlengthPtr.value;
     final err = errPtr.value;
     malloc.free(dataPtr);
@@ -30,7 +32,7 @@ class FlutterMYSOFA {
     }
   }
 
-  List<List<double>> getIR(double phi, double theta, double r ){
+  List<List<double>> getIR(double phi, double theta, double r) {
     final valuesPtr = malloc<Float>(3);
     valuesPtr[0] = phi;
     valuesPtr[1] = theta;
@@ -41,7 +43,8 @@ class FlutterMYSOFA {
     final irRightPtr = malloc<Float>(filterLength);
     final delayLeftPtr = malloc<Float>();
     final delayRightPtr = malloc<Float>();
-    _library.mysofa_getfilter_float(hrtf, valuesPtr[0],valuesPtr[1],valuesPtr[2], irLeftPtr, irRightPtr, delayLeftPtr, delayRightPtr);
+    _library.mysofa_getfilter_float(hrtf, valuesPtr[0], valuesPtr[1],
+        valuesPtr[2], irLeftPtr, irRightPtr, delayLeftPtr, delayRightPtr);
     final irLeft = irLeftPtr.asTypedList(filterLength).toList();
     final irRight = irRightPtr.asTypedList(filterLength).toList();
     malloc.free(valuesPtr);
@@ -51,7 +54,6 @@ class FlutterMYSOFA {
     malloc.free(delayRightPtr);
 
     return [irLeft, irRight];
-
   }
 
   void dispose() {
