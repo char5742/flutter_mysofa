@@ -1,0 +1,49 @@
+name: flutter_mysofa
+description: A new Flutter plugin project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+  flutter: ">=3.3.0"
+
+dependencies:
+  ffi: ^2.0.2
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  ffigen: ^8.0.2
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.flutter_mysofa
+        pluginClass: FlutterMysofaPlugin
+      ios:
+        pluginClass: FlutterMysofaPlugin
+
+ffigen:
+  name: 'MYSOFALibrary'
+  description: 'Bindings to MYSOFALibrary'
+  output: 'lib/generated_bindings.dart'
+  llvm-path:
+    - 'C:\Program Files\llvm'
+  headers:
+    entry-points:
+      - 'mysofa.h'
+      
+  compiler-opts:
+    - '"-IC:\Program Files\LLVM\lib\clang\23\include\"'
+scripts:
+  # bindingクラスを生成する
+  ffigen: flutter pub run ffigen
