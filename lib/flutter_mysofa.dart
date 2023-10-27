@@ -20,8 +20,8 @@ class FlutterMYSOFA {
     dataPtr.asTypedList(data.lengthInBytes).setAll(0, databyte);
     final filterlengthPtr = malloc<Int>();
     final errPtr = malloc<Int>();
-    hrtf = _library.mysofa_open_data_no_norm(dataPtr.cast<Char>(), data.lengthInBytes,
-        samplerate, filterlengthPtr, errPtr);
+    hrtf = _library.mysofa_open_data_no_norm(dataPtr.cast<Char>(),
+        data.lengthInBytes, samplerate, filterlengthPtr, errPtr);
     filterLength = filterlengthPtr.value;
     final err = errPtr.value;
     malloc.free(dataPtr);
