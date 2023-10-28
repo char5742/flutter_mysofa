@@ -9,7 +9,7 @@ import 'generated_bindings.dart';
 class FlutterMYSOFA {
   final _library = MYSOFALibrary(Platform.isAndroid
       ? DynamicLibrary.open('libmysofa.so')
-      : DynamicLibrary.open('libmysofa.dylib'));
+      : DynamicLibrary.process());
   late Pointer<MYSOFA_EASY> hrtf;
   late int filterLength;
   Future<void> initialize(String assetPath,

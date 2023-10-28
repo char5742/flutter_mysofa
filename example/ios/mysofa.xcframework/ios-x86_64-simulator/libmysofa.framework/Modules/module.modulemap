@@ -1,0 +1,4 @@
+framework module libmysofa {
+  umbrella header "mysofa.h"
+  export *
+}
